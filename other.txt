@@ -1,0 +1,31 @@
+def site_scraper(url=MAIN_URL):
+    def grab_game_links():
+        try:
+            response = requests.get(url, headers=HEADERS)
+            if response.status_code == 200:
+                soup = bs(response.content, 'html.parser')
+                game_links = soup.find('class_', 'card-wrap')
+            else:
+                print(f'Page no loaded html code: {response.status_code}')
+        except requests.exceptions.RequestException as e:
+            print(f'An error occurred while getting url: {e}')
+
+
+    if not url:
+        print('No url provided, scraping main site from scratch')
+
+        PAGE_NUMBERING = '?page='
+site_info = '''
+https://images.gog-statics.com/480f0aa731e8a0923ab395cc3feaa4f3706827f7cd6ad23e3b9b4b63190c79d2.webp image URL -> class="jsx-4167994828 card "
+https://gog-games.to/game/gothic_1_remake game url -> class="jsx-4167994828 game-cover"
+
+<span title="Gothic 1 Remake" class="jsx-4167994828">Gothic 1 Remake</span> title
+
+
+
+'''
+
+HEADERS = {
+    'User-Agent'  :
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.7727.56 Safari/537.36'
+}
